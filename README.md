@@ -6,7 +6,7 @@ Cynetics transforms high-level descriptions into working software through a stru
 
 ```bash
 # 1. Clone repository
-git clone <your-repo-url>
+git clone https://github.com/CynnixSinn/Cynetics
 cd cynetics
 
 # 2. Install dependencies
