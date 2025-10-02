@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  cynetics:
+    build: .
+    container_name: cynetics
+    volumes:
+      - ./workspace:/app/workspace
+      - ./artifacts:/app/artifacts
+      - ./logs:/app/logs
+      - ./cynetics.json:/app/cynetics.json
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    stdin_open: true
+    tty: true
+
+  # Optional: Ollama for local models
+  ollama:
+    image: ollama/ollama:latest
+    container_name: cynetics-ollama
+    volumes:
+      - ollama-data:/root/.ollama
+    ports:
+      - "11434:11434"
+
+volumes:
+  ollama-data:

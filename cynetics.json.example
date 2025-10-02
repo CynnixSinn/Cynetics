@@ -1,0 +1,83 @@
+{
+  "version": "1.0.0",
+  "project_root": "./",
+  "workspace_dir": "./workspace",
+  "artifacts_dir": "./artifacts",
+  "default_provider": "anthropic",
+  
+  "ai_providers": [
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5-20250929",
+      "api_key": "${ANTHROPIC_API_KEY}",
+      "base_url": null,
+      "temperature": 0.7,
+      "max_tokens": 8000
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-4-turbo",
+      "api_key": "${OPENAI_API_KEY}",
+      "base_url": null,
+      "temperature": 0.7,
+      "max_tokens": 4096
+    }
+  ],
+  
+  "mcp_servers": [
+    {
+      "name": "filesystem",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "./workspace"],
+      "env": {},
+      "enabled": true
+    },
+    {
+      "name": "git",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "./workspace"],
+      "env": {},
+      "enabled": true
+    },
+    {
+      "name": "shell",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shell"],
+      "env": {
+        "ALLOWED_COMMANDS": "npm,python,pytest,node,git"
+      },
+      "enabled": true
+    },
+    {
+      "name": "memory",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {},
+      "enabled": true
+    }
+  ],
+  
+  "workflow_settings": {
+    "auto_commit": true,
+    "run_tests_after_each_task": true,
+    "parallel_tasks": false,
+    "max_parallel": 3,
+    "retry_failed_tasks": true,
+    "max_retries": 2,
+    "create_branches": true,
+    "branch_prefix": "cynetics/"
+  },
+  
+  "code_quality": {
+    "lint_on_commit": false,
+    "format_on_save": true,
+    "run_security_scan": false
+  },
+  
+  "monitoring": {
+    "log_level": "INFO",
+    "save_conversation_history": true,
+    "track_token_usage": true,
+    "performance_metrics": false
+  }
+}
